@@ -835,7 +835,7 @@ def main():
         return
     
     # Query parameters for navigation
-    query_params = st.experimental_get_query_params()
+    query_params = st.query_params()
     initial_neuron = 1
     
     if "neuron" in query_params:
@@ -1074,7 +1074,7 @@ def main():
                                         st.image(
                                             display_urls[img_idx],
                                             caption=f"#{img_idx+1}: {display_activations[img_idx]:.3f}",
-                                            use_column_width=True
+                                            use_container_width=True
                                         )
                                     except:
                                         st.error(f"Failed to load image {img_idx+1}")
