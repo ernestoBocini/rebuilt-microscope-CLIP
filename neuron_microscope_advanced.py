@@ -1074,13 +1074,13 @@ def main():
         
         if st.button("Go to Neuron", use_container_width=True):
             navigate_to_neuron(selected_neuron)
-            st.experimental_rerun()
+            st.rerun()
         
         # Random neuron button
         if st.button("Random Neuron", use_container_width=True):
             random_neuron = np.random.randint(0, 2560)
             navigate_to_neuron(random_neuron)
-            st.experimental_rerun()
+            st.rerun()
         
         # Professional suggestions with categories
         st.markdown("#### Notable Neurons")
@@ -1113,7 +1113,7 @@ def main():
                 for concept, neuron_idx in neurons.items():
                     if st.button(f"#{neuron_idx}: {concept}", key=f"cat_{neuron_idx}"):
                         navigate_to_neuron(neuron_idx)
-                        st.experimental_rerun()
+                        st.rerun()
     
     # Main content area with enhanced layout
     st.markdown('<div class="neuron-showcase">', unsafe_allow_html=True)
@@ -1508,7 +1508,7 @@ def main():
                     if candidates:
                         random_neuron = np.random.choice(candidates)
                         navigate_to_neuron(random_neuron)
-                        st.experimental_rerun()
+                        st.rerun()
     
     with tab4:
         st.markdown("#### Neuron Similarity Network")
@@ -1615,14 +1615,14 @@ def main():
                 for i, (neuron_id, activation) in enumerate(neuron_activations[:5]):
                     if st.button(f"#{neuron_id}: {activation:.3f}", key=f"top_{i}"):
                         navigate_to_neuron(neuron_id)
-                        st.experimental_rerun()
+                        st.rerun()
             
             with insight_col2:
                 st.markdown("**Least Active Neurons**")
                 for i, (neuron_id, activation) in enumerate(neuron_activations[-5:]):
                     if st.button(f"#{neuron_id}: {activation:.3f}", key=f"bottom_{i}"):
                         navigate_to_neuron(neuron_id)
-                        st.experimental_rerun()
+                        st.rerun()
     
     # Footer with enhanced information
     st.markdown("---")
