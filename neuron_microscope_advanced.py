@@ -637,7 +637,16 @@ def get_lucid_image_url(neuron_idx):
     return f"{HF_BASE_URL}/lucid/neuron_{neuron_idx:04d}_lucid.png"
 
 def navigate_to_neuron(neuron_idx):
-    st.experimental_set_query_params(neuron=str(neuron_idx))
+    try:
+        # Try newer API
+        st.query_params["neuron"] = str(neuron_idx)
+    except AttributeError:
+        # Fallback for older versions
+        try:
+            st.experimental_set_query_params(neuron=str(neuron_idx))
+        except:
+            # If both fail, just continue without URL updates
+            pass
 
 # Enhanced analysis functions
 def create_neuron_similarity_network(metadata, selected_neuron, top_n=20):
@@ -835,14 +844,33 @@ def main():
         return
     
     # Query parameters for navigation
-    query_params = st.query_params()
-    initial_neuron = 1
-    
-    if "neuron" in query_params:
+    try:
+        # Try the newer Streamlit API first
+        query_params = st.query_params
+        initial_neuron = 1
+        
+        if "neuron" in query_params:
+            try:
+                initial_neuron = int(query_params["neuron"])
+            except (ValueError, TypeError):
+                initial_neuron = 1
+            
+    except AttributeError:
+        # Fallback for older Streamlit versions
         try:
-            initial_neuron = int(query_params["neuron"][0])
-        except (ValueError, IndexError):
+            query_params = st.experimental_get_query_params()
             initial_neuron = 1
+            
+            if "neuron" in query_params:
+                try:
+                    initial_neuron = int(query_params["neuron"][0])
+                except (ValueError, IndexError, TypeError):
+                    initial_neuron = 1
+        except:
+            # Final fallback - no query params
+            initial_neuron = 1
+
+    
     
     # Sidebar configuration
     with st.sidebar:
