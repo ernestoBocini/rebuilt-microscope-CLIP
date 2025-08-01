@@ -579,10 +579,10 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Enhanced header
+# Professional header
 st.markdown("""
 <div class="microscope-header">
-    <h1 class="header-title">🔬 CLIP Microscope</h1>
+    <h1 class="header-title">CLIP Microscope</h1>
     <p class="header-subtitle">Explore what CLIP neurons learn from ImageNet</p>
 </div>
 """, unsafe_allow_html=True)
@@ -826,7 +826,7 @@ def create_neuron_comparison_chart(metadata, neuron_list):
 # Main App
 def main():
     # Load metadata
-    with st.spinner("🧠 Loading neural network data..."):
+    with st.spinner("Loading neural network data..."):
         metadata = load_neuron_metadata()
         dataset_summary = load_dataset_summary()
     
@@ -846,7 +846,7 @@ def main():
     
     # Sidebar configuration
     with st.sidebar:
-        st.markdown("### 🎛️ Controls")
+        st.markdown("### Controls")
         
         # Dataset overview
         if dataset_summary:
@@ -871,10 +871,10 @@ def main():
         if not available_splits:
             available_splits = ["train"]
         
-        selected_split = st.selectbox("📊 Data Split", available_splits)
+        selected_split = st.selectbox("Data Split", available_splits)
         
         # Neuron navigation
-        st.markdown("#### 🧭 Navigation")
+        st.markdown("#### Navigation")
         selected_neuron = st.number_input(
             "Neuron Index", 
             min_value=0, 
@@ -882,39 +882,39 @@ def main():
             value=initial_neuron
         )
         
-        if st.button("🎯 Go to Neuron", use_container_width=True):
+        if st.button("Go to Neuron", use_container_width=True):
             navigate_to_neuron(selected_neuron)
             st.experimental_rerun()
         
         # Random neuron button
-        if st.button("🎲 Random Neuron", use_container_width=True):
+        if st.button("Random Neuron", use_container_width=True):
             random_neuron = np.random.randint(0, 2560)
             navigate_to_neuron(random_neuron)
             st.experimental_rerun()
         
-        # Enhanced suggestions with categories
-        st.markdown("#### 🏷️ Interesting Neurons")
+        # Professional suggestions with categories
+        st.markdown("#### Notable Neurons")
         
         suggestion_categories = {
-            "🎭 People & Characters": {
-                "trump": 89, "spiderman": 244, "elvis": 1063, 
-                "hillary clinton": 1165, "superman": 2065
+            "People & Characters": {
+                "Donald Trump": 89, "Spider-Man": 244, "Elvis": 1063, 
+                "Hillary Clinton": 1165, "Superman": 2065
             },
-            "🐾 Animals": {
-                "puppies": 355, "frog": 1040, "turtle": 978,
-                "dalmatian": 1131, "horse": 1406, "lion": 1428
+            "Animals": {
+                "Puppies": 355, "Frog": 1040, "Turtle": 978,
+                "Dalmatian": 1131, "Horse": 1406, "Lion": 1428
             },
-            "🌸 Nature": {
-                "flowers": 306, "rose": 514, "wheat": 4,
-                "banana": 625, "droplets": 967
+            "Nature": {
+                "Flowers": 306, "Rose": 514, "Wheat": 4,
+                "Banana": 625, "Droplets": 967
             },
-            "🏃 Human Features": {
-                "smile": 432, "beard": 1039, "curly hair": 1069,
-                "sunglasses": 1095, "raised hand": 1116
+            "Human Features": {
+                "Smile": 432, "Beard": 1039, "Curly Hair": 1069,
+                "Sunglasses": 1095, "Raised Hand": 1116
             },
-            "🔤 Text & Symbols": {
-                "letter e": 1434, "star symbol": 1393,
-                "google logo": 1418, "nike": 1104
+            "Text & Symbols": {
+                "Letter E": 1434, "Star Symbol": 1393,
+                "Google Logo": 1418, "Nike": 1104
             }
         }
         
@@ -963,8 +963,8 @@ def main():
             has_lucid = "lucid_image" in neuron_data
             st.markdown(f"""
             <div class="metric-card">
-                <div class="metric-value">{'✅' if has_lucid else '❌'}</div>
-                <div class="metric-label">Lucid Available</div>
+                <div class="metric-value">{'Available' if has_lucid else 'N/A'}</div>
+                <div class="metric-label">Lucid Visual</div>
             </div>
             """, unsafe_allow_html=True)
         
@@ -981,11 +981,11 @@ def main():
     
     # Enhanced tabs with new features
     tab1, tab2, tab3, tab4, tab5 = st.tabs([
-        "🎨 Feature Visualization", 
-        "🖼️ Top Activations", 
-        "📊 Analysis Dashboard",
-        "🕸️ Neuron Network", 
-        "📈 Statistics"
+        "Feature Visualization", 
+        "Top Activations", 
+        "Analysis Dashboard",
+        "Neuron Network", 
+        "Statistics"
     ])
     
     with tab1:
@@ -1074,7 +1074,7 @@ def main():
                                         st.image(
                                             display_urls[img_idx],
                                             caption=f"#{img_idx+1}: {display_activations[img_idx]:.3f}",
-                                            use_container_width=True
+                                            use_column_width=True
                                         )
                                     except:
                                         st.error(f"Failed to load image {img_idx+1}")
@@ -1097,7 +1097,7 @@ def main():
         st.markdown('</div>', unsafe_allow_html=True)
     
     with tab3:
-        st.markdown("#### 📊 Neuron Analysis Dashboard")
+        st.markdown("#### Neuron Analysis Dashboard")
         
         # Activation distribution
         dist_plot = create_activation_distribution_plot(metadata, selected_neuron)
@@ -1140,7 +1140,7 @@ def main():
                         # Create heatmap with plotly
                         fig = go.Figure(data=go.Heatmap(
                             z=heatmap_data,
-                            colorscale='Viridis',
+                            colorscale='Blues',
                             showscale=True
                         ))
                         
@@ -1157,7 +1157,7 @@ def main():
         
         # Additional analysis section
         st.markdown("---")
-        st.markdown("#### 🔍 Detailed Analysis")
+        st.markdown("#### Detailed Analysis")
         
         analysis_col1, analysis_col2 = st.columns(2)
         
@@ -1184,11 +1184,11 @@ def main():
                     
                     # Activation strength indicator
                     if neuron_data.get('max_activation', 0) > 3.0:
-                        st.success("🔥 **Highly Responsive Neuron** - Strong, clear activations")
+                        st.success("**Highly Responsive Neuron** - Strong, clear activations")
                     elif neuron_data.get('max_activation', 0) > 1.5:
-                        st.info("⚡ **Moderately Responsive** - Clear but moderate activations")
+                        st.info("**Moderately Responsive** - Clear but moderate activations")
                     else:
-                        st.warning("🌙 **Low Response** - Weak or sparse activations")
+                        st.warning("**Low Response** - Weak or sparse activations")
         
         with analysis_col2:
             st.markdown("**Selectivity Analysis**")
@@ -1227,15 +1227,15 @@ def main():
                     
                     # Selectivity interpretation
                     if selectivity_ratio > 10:
-                        st.success("🎯 **Highly Selective** - Responds to very specific patterns")
+                        st.success("**Highly Selective** - Responds to very specific patterns")
                     elif selectivity_ratio > 5:
-                        st.info("🔍 **Moderately Selective** - Responds to related patterns")
+                        st.info("**Moderately Selective** - Responds to related patterns")
                     else:
-                        st.warning("🌐 **Broadly Responsive** - Responds to many different patterns")
+                        st.warning("**Broadly Responsive** - Responds to many different patterns")
         
         # Concept discovery section
         st.markdown("---")
-        st.markdown("#### 💡 Concept Discovery")
+        st.markdown("#### Concept Discovery")
         
         concept_col1, concept_col2 = st.columns([2, 1])
         
@@ -1252,13 +1252,13 @@ def main():
                 
                 if dominance > 50:
                     readable_top_class = get_readable_class_name(top_class)
-                    st.success(f"🎯 **Primary Concept**: This neuron strongly responds to **{readable_top_class}** ({dominance:.1f}% of top activations)")
+                    st.success(f"**Primary Concept**: This neuron strongly responds to **{readable_top_class}** ({dominance:.1f}% of top activations)")
                 elif dominance > 30:
                     readable_top_class = get_readable_class_name(top_class)
-                    st.info(f"🔍 **Main Concept**: This neuron often responds to **{readable_top_class}** ({dominance:.1f}% of top activations)")
+                    st.info(f"**Main Concept**: This neuron often responds to **{readable_top_class}** ({dominance:.1f}% of top activations)")
                 else:
                     readable_top_class = get_readable_class_name(top_class)
-                    st.warning(f"🌐 **Mixed Response**: This neuron responds to various concepts, most commonly **{readable_top_class}** ({dominance:.1f}%)")
+                    st.warning(f"**Mixed Response**: This neuron responds to various concepts, most commonly **{readable_top_class}** ({dominance:.1f}%)")
                 
                 # Show concept diversity
                 unique_classes = len(concept_data)
@@ -1271,7 +1271,7 @@ def main():
             st.markdown("**Quick Actions**")
             
             # Add some quick action buttons
-            if st.button("🔄 Find Similar Neurons", use_container_width=True):
+            if st.button("Find Similar Neurons", use_container_width=True):
                 # Find neurons with similar max activation
                 if str(selected_neuron) in metadata:
                     current_max = metadata[str(selected_neuron)].get('max_activation', 0)
@@ -1287,20 +1287,20 @@ def main():
                         for nid, max_act in similar[:3]:
                             st.markdown(f"- Neuron {nid}: {max_act:.3f}")
             
-            if st.button("📊 Compare with Average", use_container_width=True):
+            if st.button("Compare with Average", use_container_width=True):
                 if metadata:
                     all_max_acts = [data.get('max_activation', 0) for data in metadata.values()]
                     avg_max = np.mean(all_max_acts)
                     current_max = metadata[str(selected_neuron)].get('max_activation', 0)
                     
                     if current_max > avg_max * 1.5:
-                        st.success(f"📈 This neuron is {current_max/avg_max:.1f}x more active than average!")
+                        st.success(f"This neuron is {current_max/avg_max:.1f}x more active than average!")
                     elif current_max > avg_max:
-                        st.info(f"↗️ This neuron is {current_max/avg_max:.1f}x more active than average")
+                        st.info(f"This neuron is {current_max/avg_max:.1f}x more active than average")
                     else:
-                        st.warning(f"📉 This neuron is {current_max/avg_max:.1f}x less active than average")
+                        st.warning(f"This neuron is {current_max/avg_max:.1f}x less active than average")
             
-            if st.button("🎲 Explore Random Similar", use_container_width=True):
+            if st.button("Explore Random Similar", use_container_width=True):
                 # Navigate to a random neuron with similar activation range
                 if str(selected_neuron) in metadata:
                     current_max = metadata[str(selected_neuron)].get('max_activation', 0)
@@ -1316,7 +1316,7 @@ def main():
                         st.experimental_rerun()
     
     with tab4:
-        st.markdown("#### 🕸️ Neuron Similarity Network")
+        st.markdown("#### Neuron Similarity Network")
         
         # Neuron similarity network
         similarity_plot = create_neuron_similarity_network(metadata, selected_neuron)
@@ -1324,14 +1324,14 @@ def main():
             st.plotly_chart(similarity_plot, use_container_width=True)
             
             st.markdown("**How to interpret this network:**")
-            st.markdown("- 🔴 **Red node**: Current neuron")
-            st.markdown("- 🟢 **Connected nodes**: Similar neurons (based on activation patterns)")
+            st.markdown("- **Red node**: Current neuron")
+            st.markdown("- **Connected nodes**: Similar neurons (based on activation patterns)")
             st.markdown("- **Line thickness**: Similarity strength")
         else:
             st.info("Similarity analysis not available for this neuron")
         
         # Quick comparison with suggested similar neurons
-        st.markdown("#### 🔄 Compare with Similar Neurons")
+        st.markdown("#### Compare with Similar Neurons")
         
         # Find some similar neurons (simplified)
         similar_neurons = []
@@ -1353,13 +1353,13 @@ def main():
                 st.plotly_chart(comparison_plot, use_container_width=True)
     
     with tab5:
-        st.markdown("#### 📈 Global Statistics & Insights")
+        st.markdown("#### Global Statistics & Insights")
         
         # Dataset-wide statistics
         col1, col2 = st.columns(2)
         
         with col1:
-            st.markdown("##### 🌍 Dataset Overview")
+            st.markdown("##### Dataset Overview")
             
             if dataset_summary:
                 # Create a simple bar chart of splits
@@ -1370,7 +1370,7 @@ def main():
                     
                     fig = go.Figure(data=[
                         go.Bar(x=split_names, y=split_counts, 
-                               marker_color=['#8b5cf6', '#06b6d4'])
+                               marker_color=['#3b82f6', '#06b6d4'])
                     ])
                     fig.update_layout(
                         title="Images per Split",
@@ -1381,7 +1381,7 @@ def main():
                     st.plotly_chart(fig, use_container_width=True)
         
         with col2:
-            st.markdown("##### 🧠 Neuron Insights")
+            st.markdown("##### Neuron Insights")
             
             # Show some interesting global statistics
             if metadata:
@@ -1395,7 +1395,7 @@ def main():
                     x=max_activations,
                     nbinsx=50,
                     name="Max Activations",
-                    marker_color='rgba(138, 43, 226, 0.7)'
+                    marker_color='#3b82f6'
                 ))
                 fig.update_layout(
                     title="Distribution of Neuron Max Activations",
@@ -1406,7 +1406,7 @@ def main():
                 st.plotly_chart(fig, use_container_width=True)
         
         # Global insights
-        st.markdown("##### 🔍 Interesting Discoveries")
+        st.markdown("##### Interesting Discoveries")
         
         if metadata:
             # Find most/least active neurons
@@ -1416,14 +1416,14 @@ def main():
             insight_col1, insight_col2 = st.columns(2)
             
             with insight_col1:
-                st.markdown("**🔥 Most Active Neurons**")
+                st.markdown("**Most Active Neurons**")
                 for i, (neuron_id, activation) in enumerate(neuron_activations[:5]):
                     if st.button(f"#{neuron_id}: {activation:.3f}", key=f"top_{i}"):
                         navigate_to_neuron(neuron_id)
                         st.experimental_rerun()
             
             with insight_col2:
-                st.markdown("**😴 Least Active Neurons**")
+                st.markdown("**Least Active Neurons**")
                 for i, (neuron_id, activation) in enumerate(neuron_activations[-5:]):
                     if st.button(f"#{neuron_id}: {activation:.3f}", key=f"bottom_{i}"):
                         navigate_to_neuron(neuron_id)
@@ -1435,25 +1435,26 @@ def main():
     # Use columns and regular Streamlit components instead of raw HTML
     st.markdown('<div class="glass-card">', unsafe_allow_html=True)
     
-    st.markdown("#### 🔬 About CLIP Microscope")
+    st.markdown("#### About CLIP Microscope")
     st.markdown("This tool visualizes what individual neurons in OpenAI's CLIP model learn from ImageNet. Each neuron develops sensitivity to specific visual patterns, objects, or concepts.")
     
     # Create info grid using columns
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        st.markdown("**🤖 Model:** CLIP RN50x4")
-        st.markdown("**🎯 Layer:** Image Encoder Blocks")
+        st.markdown("**Model:** CLIP RN50x4")
+        st.markdown("**Layer:** Image Encoder Blocks")
     
     with col2:
-        st.markdown("**📊 Dataset:** ImageNet (train split)")
-        st.markdown("**🧠 Neurons:** 2,560 analyzed")
+        st.markdown("**Dataset:** ImageNet (train split)")
+        st.markdown("**Neurons:** 2,560 analyzed")
     
     with col3:
-        st.markdown(f"**🔗 Source:** [Hugging Face Dataset](https://huggingface.co/datasets/{HF_REPO_ID})")
-        st.markdown("**💡 Inspiration:** [OpenAI Microscope](https://microscope.openai.com)")
+        st.markdown(f"**Source:** [Hugging Face Dataset](https://huggingface.co/datasets/{HF_REPO_ID})")
+        st.markdown("**Inspiration:** [OpenAI Microscope](https://microscope.openai.com)")
     
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 # Run the app
 if __name__ == "__main__":
