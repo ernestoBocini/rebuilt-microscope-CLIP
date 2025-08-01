@@ -835,7 +835,7 @@ def main():
         return
     
     # Query parameters for navigation
-    query_params = st.query_params()
+    query_params = st.experimental_get_query_params()
     initial_neuron = 1
     
     if "neuron" in query_params:
