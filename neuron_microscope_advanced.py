@@ -368,402 +368,374 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Enhanced CSS with more Microscope-like styling
+
 st.markdown("""
 <style>
-    /* Import modern fonts */
+    /* Import clean font */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     
-    /* Main container styles - Using your config colors */
-    .main {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-        padding-top: 0 !important;
-    }
+    /* Clean, minimalist base */
     .stApp {
         font-family: 'Inter', sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #f8fafc;
+        color: #1e293b;
     }
     
-    /* Remove white bar under header */
+    .main {
+        background: #f8fafc;
+        padding-top: 0 !important;
+    }
+    
+    /* Remove default spacing */
     .main .block-container {
-        padding-top: 1rem !important;
-        padding-bottom: 0rem !important;
-        gap: 0rem !important;
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+        max-width: 1200px;
     }
     
-    /* Remove default Streamlit spacing */
-    .element-container {
-        margin-bottom: 0 !important;
-    }
-    
-    /* Remove space between elements */
-    .stMarkdown {
-        margin-bottom: 0 !important;
-    }
-    
-    /* Specifically target the neuron showcase to remove top margin */
-    .neuron-showcase {
-        margin-top: 0 !important;
-    }
-    
-    /* Header with gradient matching your theme */
+    /* Clean header - minimal and professional */
     .microscope-header {
-        background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
-        padding: 2rem;
-        border-radius: 15px;
+        background: white;
+        padding: 3rem 2rem;
+        border-radius: 16px;
         margin-bottom: 2rem;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        position: relative;
-        overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        border: 1px solid #e2e8f0;
+        text-align: center;
     }
-    .microscope-header::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1.5" fill="rgba(255,255,255,0.1)"/></svg>');
-        pointer-events: none;
-    }
+    
     .header-title {
-        color: #ffffff;
+        color: #1e293b;
         font-size: 2.5rem;
         font-weight: 700;
         margin: 0;
-        text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+        letter-spacing: -0.025em;
     }
+    
     .header-subtitle {
-        color: rgba(255,255,255,0.9);
-        font-size: 1.2rem;
+        color: #64748b;
+        font-size: 1.1rem;
         margin: 0.5rem 0 0;
-        font-weight: 300;
-    }
-    
-    /* Glass morphism cards with better contrast */
-    .glass-card {
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 15px;
-        padding: 1.5rem;
-        margin: 1rem 0;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-        color: #ffffff;
-    }
-    
-    /* Neuron card styling - Pure white for better contrast */
-    .neuron-showcase {
-        background: rgba(255, 255, 255, 0.98);
-        border-radius: 20px;
-        padding: 2rem;
-        margin: 1rem 0;
-        box-shadow: 0 15px 50px rgba(0,0,0,0.2);
-        border: 1px solid rgba(255,255,255,0.3);
-        color: #2d3748;
-    }
-    
-    /* Sidebar enhancements - Match your theme colors */
-    .stSidebar {
-        background: linear-gradient(180deg, #4a5568 0%, #2d3748 100%) !important;
-    }
-    .stSidebar .stSelectbox label, 
-    .stSidebar .stNumberInput label, 
-    .stSidebar .stMarkdown,
-    .stSidebar .stMarkdown h4,
-    .stSidebar .stMarkdown h5 {
-        color: #ffffff !important;
-        font-weight: 500;
-    }
-    
-    /* Sidebar buttons */
-    .stSidebar .stButton > button {
-        background: linear-gradient(135deg, #8a2be2 0%, #9932cc 100%);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-weight: 500;
-    }
-    .stSidebar .stButton > button:hover {
-        background: linear-gradient(135deg, #9932cc 0%, #8a2be2 100%);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(138, 43, 226, 0.3);
-    }
-    
-    /* Enhanced metrics matching your primary color */
-    .metric-card {
-        background: linear-gradient(135deg, #8a2be2 0%, #9932cc 100%);
-        color: white;
-        padding: 1.2rem;
-        border-radius: 12px;
-        text-align: center;
-        box-shadow: 0 8px 20px rgba(138, 43, 226, 0.3);
-        border: 1px solid rgba(255,255,255,0.1);
-    }
-    .metric-value {
-        font-size: 1.8rem;
-        font-weight: 700;
-        margin-bottom: 0.2rem;
-        text-shadow: 0 1px 3px rgba(0,0,0,0.2);
-    }
-    .metric-label {
-        font-size: 0.9rem;
-        opacity: 0.95;
         font-weight: 400;
     }
     
-    /* Tab styling with better contrast */
-    .stTabs [data-baseweb="tab-list"] {
-        background: rgba(255,255,255,0.2);
-        border-radius: 15px;
-        padding: 0.5rem;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255,255,255,0.3);
+    /* Clean sidebar */
+    .stSidebar {
+        background: white !important;
+        border-right: 1px solid #e2e8f0;
     }
+    
+    .stSidebar .stMarkdown h3,
+    .stSidebar .stMarkdown h4,
+    .stSidebar .stMarkdown h5,
+    .stSidebar .stMarkdown p {
+        color: #1e293b !important;
+        font-weight: 600;
+    }
+    
+    .stSidebar .stSelectbox label, 
+    .stSidebar .stNumberInput label {
+        color: #374151 !important;
+        font-weight: 500;
+        font-size: 0.875rem;
+    }
+    
+    /* Clean form elements */
+    .stSelectbox > div > div,
+    .stNumberInput > div > div > input {
+        background-color: white;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        color: #1e293b;
+        font-size: 0.875rem;
+    }
+    
+    .stSelectbox > div > div:focus,
+    .stNumberInput > div > div > input:focus {
+        border-color: #8a2be2;
+        box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.1);
+    }
+    
+    /* Professional buttons */
+    .stButton > button {
+        background: #8a2be2;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+        transition: all 0.15s ease;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    
+    .stButton > button:hover {
+        background: #7c3aed;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(138, 43, 226, 0.25);
+    }
+    
+    /* Neuron showcase - clean white card */
+    .neuron-showcase {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 1rem 0;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        border: 1px solid #e2e8f0;
+    }
+    
+    .neuron-showcase h1, 
+    .neuron-showcase h2, 
+    .neuron-showcase h3 {
+        color: #1e293b;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    
+    .neuron-showcase p {
+        color: #64748b;
+        font-size: 0.95rem;
+    }
+    
+    /* Clean metric cards */
+    .metric-card {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        transition: all 0.15s ease;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    
+    .metric-card:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border-color: #c7d2fe;
+    }
+    
+    .metric-value {
+        font-size: 1.875rem;
+        font-weight: 700;
+        color: #8a2be2;
+        margin-bottom: 0.25rem;
+    }
+    
+    .metric-label {
+        font-size: 0.875rem;
+        color: #64748b;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+    }
+    
+    /* Clean tabs */
+    .stTabs [data-baseweb="tab-list"] {
+        background: white;
+        border-radius: 12px;
+        padding: 0.25rem;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    
     .stTabs [data-baseweb="tab"] {
         background: transparent;
-        color: #ffffff;
-        border-radius: 10px;
+        color: #64748b;
+        border-radius: 8px;
         font-weight: 500;
         border: none;
-        text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        padding: 0.75rem 1rem;
+        font-size: 0.875rem;
     }
+    
     .stTabs [aria-selected="true"] {
-        background: rgba(138, 43, 226, 0.7);
+        background: #8a2be2;
         color: white;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        box-shadow: 0 1px 2px rgba(0,0,0,0.1);
     }
     
-    /* Image grid enhancements */
+    /* Content areas */
     .image-grid-container {
-        background: rgba(255, 255, 255, 0.98);
-        border-radius: 15px;
+        background: white;
+        border-radius: 16px;
         padding: 1.5rem;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        color: #2d3748;
-    }
-    
-    /* Suggestions styling with your primary color */
-    .suggestion-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 0.5rem;
-        margin: 1rem 0;
-    }
-    .suggestion-btn {
-        background: linear-gradient(135deg, #8a2be2 0%, #9932cc 100%);
-        color: white;
-        border: none;
-        padding: 0.7rem 1rem;
-        border-radius: 8px;
-        font-size: 0.85rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.2s;
-        text-align: left;
-        box-shadow: 0 2px 8px rgba(138, 43, 226, 0.3);
-    }
-    .suggestion-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(138, 43, 226, 0.4);
-    }
-    
-    /* Statistics dashboard */
-    .stats-dashboard {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 1rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        border: 1px solid #e2e8f0;
         margin: 1rem 0;
     }
     
-    /* Loading animations */
-    .loading-shimmer {
-        background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
-        background-size: 200% 100%;
-        animation: shimmer 1.5s infinite;
-    }
-    @keyframes shimmer {
-        0% { background-position: -200% 0; }
-        100% { background-position: 200% 0; }
-    }
-    
-    /* Enhanced typography */
-    h1, h2, h3 {
-        font-family: 'Inter', sans-serif;
+    .image-grid-container h4 {
+        color: #1e293b;
         font-weight: 600;
-        color: #ffffff;
+        margin-bottom: 1rem;
+        font-size: 1.125rem;
     }
     
-    /* Text color fixes for different sections */
-    .stMarkdown h4, .stMarkdown h5, .stMarkdown h6 {
-        color: #ffffff !important;
+    /* Glass card for sidebar content */
+    .glass-card {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
     
-    /* Fix text in glass cards */
-    .glass-card h4, .glass-card h5, .glass-card p {
-        color: #ffffff !important;
+    .glass-card h4 {
+        color: #1e293b !important;
+        font-weight: 600;
+        margin-bottom: 1rem;
     }
     
-    /* Neuron showcase text should be dark */
-    .neuron-showcase h1, .neuron-showcase h2, .neuron-showcase h3, 
-    .neuron-showcase h4, .neuron-showcase h5, .neuron-showcase p {
-        color: #2d3748 !important;
-    }
-    
-    /* Image grid text should be dark */
-    .image-grid-container h4, .image-grid-container h5, .image-grid-container p {
-        color: #2d3748 !important;
-    }
-    
-    /* Streamlit component overrides */
-    .stSelectbox > div > div {
-        background-color: rgba(255,255,255,0.9);
-        color: #2d3748;
-    }
-    
-    .stNumberInput > div > div > input {
-        background-color: rgba(255,255,255,0.9);
-        color: #2d3748;
-        border: 1px solid rgba(255,255,255,0.3);
-    }
-    
-    .stSlider > div > div > div {
-        background: rgba(138, 43, 226, 0.7);
-    }
-    
-    /* Button styling improvements */
-    .stButton > button {
-        background: linear-gradient(135deg, #8a2be2 0%, #9932cc 100%);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-weight: 500;
-        transition: all 0.2s;
-        box-shadow: 0 2px 8px rgba(138, 43, 226, 0.3);
-    }
-    .stButton > button:hover {
-        background: linear-gradient(135deg, #9932cc 0%, #8a2be2 100%);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+    .glass-card p {
+        color: #64748b !important;
+        line-height: 1.6;
     }
     
     /* Expander styling */
     .stExpander {
-        background: rgba(255,255,255,0.1);
-        border: 1px solid rgba(255,255,255,0.2);
-        border-radius: 10px;
-    }
-    .stExpander > div > div > div > div {
-        color: #ffffff !important;
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        margin-bottom: 0.5rem;
     }
     
-    /* Success/info/warning message styling */
-    .stSuccess, .stInfo, .stWarning, .stError {
-        background: rgba(255,255,255,0.95) !important;
-        color: #2d3748 !important;
+    .stExpander summary {
+        color: #1e293b !important;
+        font-weight: 500;
+        padding: 0.75rem;
+    }
+    
+    .stExpander > div > div {
+        background: #f8fafc;
+        border-top: 1px solid #e2e8f0;
+    }
+    
+    /* Success/info/warning styling */
+    .stSuccess {
+        background: #f0fdf4 !important;
+        border: 1px solid #bbf7d0 !important;
+        color: #166534 !important;
         border-radius: 8px;
     }
     
-    /* Dataframe styling */
+    .stInfo {
+        background: #eff6ff !important;
+        border: 1px solid #bfdbfe !important;
+        color: #1e40af !important;
+        border-radius: 8px;
+    }
+    
+    .stWarning {
+        background: #fffbeb !important;
+        border: 1px solid #fed7aa !important;
+        color: #d97706 !important;
+        border-radius: 8px;
+    }
+    
+    /* Clean dataframes */
     .stDataFrame {
-        background: rgba(255,255,255,0.98);
         border-radius: 8px;
+        border: 1px solid #e2e8f0;
+        overflow: hidden;
     }
     
-    /* Progress bar */
+    /* Slider styling */
+    .stSlider > div > div > div > div {
+        background: #8a2be2;
+    }
+    
+    .stSlider > div > div > div {
+        background: #e2e8f0;
+    }
+    
+    /* Typography improvements */
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Inter', sans-serif;
+        color: #1e293b;
+        font-weight: 600;
+        line-height: 1.3;
+    }
+    
+    /* Image captions */
+    .stImage > div {
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
+    /* Progress indicator */
     .stProgress > div > div > div {
-        background: linear-gradient(135deg, #8a2be2 0%, #9932cc 100%);
+        background: #8a2be2;
+        border-radius: 4px;
     }
     
-    /* Caption text */
-    .stImage > div > div > div > div {
-        color: #2d3748 !important;
+    /* Plotly charts */
+    .js-plotly-plot {
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        border: 1px solid #e2e8f0;
     }
     
-    /* Hide Streamlit branding */
+    /* Clean metrics grid */
+    .stats-dashboard {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin: 1.5rem 0;
+    }
+    
+    /* Column improvements */
+    .stColumn {
+        padding: 0 0.5rem;
+    }
+    
+    /* Remove Streamlit branding */
     footer, #MainMenu, .stDeployButton {
         visibility: hidden;
     }
     
     /* Responsive design */
     @media (max-width: 768px) {
-        .header-title { font-size: 2rem; }
-        .stats-dashboard { grid-template-columns: 1fr 1fr; }
-        .microscope-header { padding: 1.5rem; }
+        .header-title { 
+            font-size: 2rem; 
+        }
+        .microscope-header {
+            padding: 2rem 1rem;
+        }
+        .stats-dashboard { 
+            grid-template-columns: 1fr 1fr; 
+        }
     }
     
-    /* Fix for sidebar text visibility */
-    .stSidebar .stMarkdown p, .stSidebar .stMarkdown li {
-        color: #ffffff !important;
+    /* Subtle accent color usage */
+    .accent-border {
+        border-left: 4px solid #8a2be2;
+        padding-left: 1rem;
     }
     
-    /* Improve contrast for form elements in sidebar */
-    .stSidebar .stSelectbox > div > div {
-        background-color: rgba(255,255,255,0.15);
-        color: #ffffff;
-        border: 1px solid rgba(255,255,255,0.3);
+    /* Clean loading states */
+    .loading-shimmer {
+        background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+        border-radius: 8px;
     }
     
-    .stSidebar .stNumberInput > div > div > input {
-        background-color: rgba(255,255,255,0.15);
-        color: #ffffff;
-        border: 1px solid rgba(255,255,255,0.3);
+    @keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
     }
     
-    .stSidebar .stSelectbox > div > div > div {
-        color: #ffffff;
+    /* Spacing improvements */
+    .element-container {
+        margin-bottom: 1rem !important;
     }
     
-    /* Plotly chart background */
-    .js-plotly-plot {
-        background: rgba(255,255,255,0.95) !important;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    
-    /* Improve metric card spacing and appearance */
-    .metric-card {
-        background: linear-gradient(135deg, #8a2be2 0%, #9932cc 100%);
-        color: white;
-        padding: 1.5rem 1.2rem;
-        border-radius: 12px;
-        text-align: center;
-        box-shadow: 0 8px 25px rgba(138, 43, 226, 0.35);
-        border: 1px solid rgba(255,255,255,0.15);
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .metric-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 30px rgba(138, 43, 226, 0.4);
-    }
-    
-    /* Tab content area */
-    .stTabs > div > div > div > div {
-        background: transparent;
-        padding-top: 1rem;
-    }
-    
-    /* Ensure white backgrounds for data display areas */
-    .image-grid-container, .neuron-showcase {
-        background: rgba(255, 255, 255, 0.98) !important;
-        backdrop-filter: blur(10px);
-    }
-    
-    /* Fix slider styling */
-    .stSlider > div > div > div > div {
-        background: #8a2be2 !important;
-    }
-    
-    /* Column styling for better separation */
-    .stColumn {
-        padding: 0 0.5rem;
-    }
-    
-    /* Spinner styling */
-    .stSpinner > div {
-        border-top-color: #8a2be2 !important;
+    /* Better focus states */
+    button:focus, input:focus, select:focus {
+        outline: 2px solid #8a2be2;
+        outline-offset: 2px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -775,6 +747,7 @@ st.markdown("""
     <p class="header-subtitle">Explore what CLIP neurons learn from ImageNet</p>
 </div>
 """, unsafe_allow_html=True)
+
 
 # Load data functions
 @st.cache_data(ttl=3600)
@@ -1143,7 +1116,7 @@ def main():
                         st.experimental_rerun()
     
     # Main content area with enhanced layout
-    st.markdown('<div class="neuron-showcase" style="margin-top: 0 !important;">', unsafe_allow_html=True)
+    st.markdown('<div class="neuron-showcase">', unsafe_allow_html=True)
     
     # Neuron header with enhanced metrics
     col1, col2, col3 = st.columns([2, 1, 1])
@@ -1152,36 +1125,41 @@ def main():
         st.markdown(f"## Neuron {selected_neuron}")
         if str(selected_neuron) in metadata:
             neuron_data = metadata[str(selected_neuron)]
-            st.caption(f"Exploring what this neuron detects in ImageNet images")
+            st.markdown(f"*Exploring what this neuron detects in ImageNet images*")
+
     
     # Enhanced metrics display
     if str(selected_neuron) in metadata:
         neuron_data = metadata[str(selected_neuron)]
         
+        # Create 4 columns for metrics
         metric_col1, metric_col2, metric_col3, metric_col4 = st.columns(4)
         
         with metric_col1:
-            st.markdown("""
+            max_activation = neuron_data.get('max_activation', 0)
+            st.markdown(f"""
             <div class="metric-card">
-                <div class="metric-value">{:.4f}</div>
+                <div class="metric-value">{max_activation:.4f}</div>
                 <div class="metric-label">Max Activation</div>
             </div>
-            """.format(neuron_data.get('max_activation', 0)), unsafe_allow_html=True)
+            """, unsafe_allow_html=True)
         
         with metric_col2:
-            st.markdown("""
+            mean_activation = neuron_data.get('mean_activation', 0)
+            st.markdown(f"""
             <div class="metric-card">
-                <div class="metric-value">{:.4f}</div>
+                <div class="metric-value">{mean_activation:.4f}</div>
                 <div class="metric-label">Mean Activation</div>
             </div>
-            """.format(neuron_data.get('mean_activation', 0)), unsafe_allow_html=True)
+            """, unsafe_allow_html=True)
         
         with metric_col3:
             has_lucid = "lucid_image" in neuron_data
+            lucid_text = "Yes" if has_lucid else "No"
             st.markdown(f"""
             <div class="metric-card">
-                <div class="metric-value">{'Available' if has_lucid else 'N/A'}</div>
-                <div class="metric-label">Lucid Visual</div>
+                <div class="metric-value">{lucid_text}</div>
+                <div class="metric-label">Lucid Available</div>
             </div>
             """, unsafe_allow_html=True)
         
@@ -1193,7 +1171,7 @@ def main():
                 <div class="metric-label">Top Images</div>
             </div>
             """, unsafe_allow_html=True)
-    
+
     st.markdown('</div>', unsafe_allow_html=True)
     
     # Enhanced tabs with new features
