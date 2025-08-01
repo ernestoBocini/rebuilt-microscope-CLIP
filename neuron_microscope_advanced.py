@@ -374,7 +374,7 @@ st.markdown("""
     /* Import modern fonts */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     
-    /* Main container styles - Remove white space issue */
+    /* Main container styles - Using your config colors */
     .main {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         min-height: 100vh;
@@ -382,6 +382,7 @@ st.markdown("""
     }
     .stApp {
         font-family: 'Inter', sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
     
     /* Remove white bar under header */
@@ -406,15 +407,16 @@ st.markdown("""
         margin-top: 0 !important;
     }
     
-    /* Header with gradient */
+    /* Header with gradient matching your theme */
     .microscope-header {
-        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
         padding: 2rem;
         border-radius: 15px;
         margin-bottom: 2rem;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         position: relative;
         overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.1);
     }
     .microscope-header::before {
         content: '';
@@ -427,11 +429,11 @@ st.markdown("""
         pointer-events: none;
     }
     .header-title {
-        color: white;
+        color: #ffffff;
         font-size: 2.5rem;
         font-weight: 700;
         margin: 0;
-        text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        text-shadow: 0 2px 10px rgba(0,0,0,0.4);
     }
     .header-subtitle {
         color: rgba(255,255,255,0.9);
@@ -440,84 +442,110 @@ st.markdown("""
         font-weight: 300;
     }
     
-    /* Glass morphism cards */
+    /* Glass morphism cards with better contrast */
     .glass-card {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(15px);
         border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 15px;
         padding: 1.5rem;
         margin: 1rem 0;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        color: #ffffff;
     }
     
-    /* Neuron card styling */
+    /* Neuron card styling - Pure white for better contrast */
     .neuron-showcase {
-        background: white;
+        background: rgba(255, 255, 255, 0.98);
         border-radius: 20px;
         padding: 2rem;
         margin: 1rem 0;
-        box-shadow: 0 15px 50px rgba(0,0,0,0.1);
-        border: 1px solid rgba(0,0,0,0.05);
+        box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+        border: 1px solid rgba(255,255,255,0.3);
+        color: #2d3748;
     }
     
-    /* Sidebar enhancements */
+    /* Sidebar enhancements - Match your theme colors */
     .stSidebar {
-        background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+        background: linear-gradient(180deg, #4a5568 0%, #2d3748 100%) !important;
     }
-    .stSidebar .stSelectbox label, .stSidebar .stNumberInput label {
-        color: #ecf0f1 !important;
+    .stSidebar .stSelectbox label, 
+    .stSidebar .stNumberInput label, 
+    .stSidebar .stMarkdown,
+    .stSidebar .stMarkdown h4,
+    .stSidebar .stMarkdown h5 {
+        color: #ffffff !important;
         font-weight: 500;
     }
     
-    /* Enhanced metrics */
-    .metric-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    /* Sidebar buttons */
+    .stSidebar .stButton > button {
+        background: linear-gradient(135deg, #8a2be2 0%, #9932cc 100%);
         color: white;
-        padding: 1rem;
-        border-radius: 10px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+    }
+    .stSidebar .stButton > button:hover {
+        background: linear-gradient(135deg, #9932cc 0%, #8a2be2 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(138, 43, 226, 0.3);
+    }
+    
+    /* Enhanced metrics matching your primary color */
+    .metric-card {
+        background: linear-gradient(135deg, #8a2be2 0%, #9932cc 100%);
+        color: white;
+        padding: 1.2rem;
+        border-radius: 12px;
         text-align: center;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        box-shadow: 0 8px 20px rgba(138, 43, 226, 0.3);
+        border: 1px solid rgba(255,255,255,0.1);
     }
     .metric-value {
         font-size: 1.8rem;
         font-weight: 700;
         margin-bottom: 0.2rem;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.2);
     }
     .metric-label {
         font-size: 0.9rem;
-        opacity: 0.9;
-        font-weight: 300;
+        opacity: 0.95;
+        font-weight: 400;
     }
     
-    /* Tab styling */
+    /* Tab styling with better contrast */
     .stTabs [data-baseweb="tab-list"] {
-        background: rgba(255,255,255,0.1);
+        background: rgba(255,255,255,0.2);
         border-radius: 15px;
         padding: 0.5rem;
         backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.3);
     }
     .stTabs [data-baseweb="tab"] {
         background: transparent;
-        color: white;
+        color: #ffffff;
         border-radius: 10px;
         font-weight: 500;
         border: none;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.3);
     }
     .stTabs [aria-selected="true"] {
-        background: rgba(255,255,255,0.2);
+        background: rgba(138, 43, 226, 0.7);
         color: white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
     
     /* Image grid enhancements */
     .image-grid-container {
-        background: white;
+        background: rgba(255, 255, 255, 0.98);
         border-radius: 15px;
         padding: 1.5rem;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        color: #2d3748;
     }
     
-    /* Suggestions styling */
+    /* Suggestions styling with your primary color */
     .suggestion-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -525,7 +553,7 @@ st.markdown("""
         margin: 1rem 0;
     }
     .suggestion-btn {
-        background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+        background: linear-gradient(135deg, #8a2be2 0%, #9932cc 100%);
         color: white;
         border: none;
         padding: 0.7rem 1rem;
@@ -535,10 +563,11 @@ st.markdown("""
         cursor: pointer;
         transition: all 0.2s;
         text-align: left;
+        box-shadow: 0 2px 8px rgba(138, 43, 226, 0.3);
     }
     .suggestion-btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+        box-shadow: 0 6px 20px rgba(138, 43, 226, 0.4);
     }
     
     /* Statistics dashboard */
@@ -551,7 +580,7 @@ st.markdown("""
     
     /* Loading animations */
     .loading-shimmer {
-        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
         background-size: 200% 100%;
         animation: shimmer 1.5s infinite;
     }
@@ -564,6 +593,93 @@ st.markdown("""
     h1, h2, h3 {
         font-family: 'Inter', sans-serif;
         font-weight: 600;
+        color: #ffffff;
+    }
+    
+    /* Text color fixes for different sections */
+    .stMarkdown h4, .stMarkdown h5, .stMarkdown h6 {
+        color: #ffffff !important;
+    }
+    
+    /* Fix text in glass cards */
+    .glass-card h4, .glass-card h5, .glass-card p {
+        color: #ffffff !important;
+    }
+    
+    /* Neuron showcase text should be dark */
+    .neuron-showcase h1, .neuron-showcase h2, .neuron-showcase h3, 
+    .neuron-showcase h4, .neuron-showcase h5, .neuron-showcase p {
+        color: #2d3748 !important;
+    }
+    
+    /* Image grid text should be dark */
+    .image-grid-container h4, .image-grid-container h5, .image-grid-container p {
+        color: #2d3748 !important;
+    }
+    
+    /* Streamlit component overrides */
+    .stSelectbox > div > div {
+        background-color: rgba(255,255,255,0.9);
+        color: #2d3748;
+    }
+    
+    .stNumberInput > div > div > input {
+        background-color: rgba(255,255,255,0.9);
+        color: #2d3748;
+        border: 1px solid rgba(255,255,255,0.3);
+    }
+    
+    .stSlider > div > div > div {
+        background: rgba(138, 43, 226, 0.7);
+    }
+    
+    /* Button styling improvements */
+    .stButton > button {
+        background: linear-gradient(135deg, #8a2be2 0%, #9932cc 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: all 0.2s;
+        box-shadow: 0 2px 8px rgba(138, 43, 226, 0.3);
+    }
+    .stButton > button:hover {
+        background: linear-gradient(135deg, #9932cc 0%, #8a2be2 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+    }
+    
+    /* Expander styling */
+    .stExpander {
+        background: rgba(255,255,255,0.1);
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 10px;
+    }
+    .stExpander > div > div > div > div {
+        color: #ffffff !important;
+    }
+    
+    /* Success/info/warning message styling */
+    .stSuccess, .stInfo, .stWarning, .stError {
+        background: rgba(255,255,255,0.95) !important;
+        color: #2d3748 !important;
+        border-radius: 8px;
+    }
+    
+    /* Dataframe styling */
+    .stDataFrame {
+        background: rgba(255,255,255,0.98);
+        border-radius: 8px;
+    }
+    
+    /* Progress bar */
+    .stProgress > div > div > div {
+        background: linear-gradient(135deg, #8a2be2 0%, #9932cc 100%);
+    }
+    
+    /* Caption text */
+    .stImage > div > div > div > div {
+        color: #2d3748 !important;
     }
     
     /* Hide Streamlit branding */
@@ -575,6 +691,79 @@ st.markdown("""
     @media (max-width: 768px) {
         .header-title { font-size: 2rem; }
         .stats-dashboard { grid-template-columns: 1fr 1fr; }
+        .microscope-header { padding: 1.5rem; }
+    }
+    
+    /* Fix for sidebar text visibility */
+    .stSidebar .stMarkdown p, .stSidebar .stMarkdown li {
+        color: #ffffff !important;
+    }
+    
+    /* Improve contrast for form elements in sidebar */
+    .stSidebar .stSelectbox > div > div {
+        background-color: rgba(255,255,255,0.15);
+        color: #ffffff;
+        border: 1px solid rgba(255,255,255,0.3);
+    }
+    
+    .stSidebar .stNumberInput > div > div > input {
+        background-color: rgba(255,255,255,0.15);
+        color: #ffffff;
+        border: 1px solid rgba(255,255,255,0.3);
+    }
+    
+    .stSidebar .stSelectbox > div > div > div {
+        color: #ffffff;
+    }
+    
+    /* Plotly chart background */
+    .js-plotly-plot {
+        background: rgba(255,255,255,0.95) !important;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    /* Improve metric card spacing and appearance */
+    .metric-card {
+        background: linear-gradient(135deg, #8a2be2 0%, #9932cc 100%);
+        color: white;
+        padding: 1.5rem 1.2rem;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 8px 25px rgba(138, 43, 226, 0.35);
+        border: 1px solid rgba(255,255,255,0.15);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .metric-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 30px rgba(138, 43, 226, 0.4);
+    }
+    
+    /* Tab content area */
+    .stTabs > div > div > div > div {
+        background: transparent;
+        padding-top: 1rem;
+    }
+    
+    /* Ensure white backgrounds for data display areas */
+    .image-grid-container, .neuron-showcase {
+        background: rgba(255, 255, 255, 0.98) !important;
+        backdrop-filter: blur(10px);
+    }
+    
+    /* Fix slider styling */
+    .stSlider > div > div > div > div {
+        background: #8a2be2 !important;
+    }
+    
+    /* Column styling for better separation */
+    .stColumn {
+        padding: 0 0.5rem;
+    }
+    
+    /* Spinner styling */
+    .stSpinner > div {
+        border-top-color: #8a2be2 !important;
     }
 </style>
 """, unsafe_allow_html=True)
