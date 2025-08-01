@@ -777,22 +777,45 @@ def load_dataset_summary():
         return {}
 
 def get_neuron_images_from_metadata(neuron_idx, metadata, split="train", max_images=100):
+    """Get neuron images with improved error handling and debugging"""
     urls = []
     activations = []
     
+    print(f"DEBUG: Looking for neuron {neuron_idx} in metadata...")
+    
     if str(neuron_idx) in metadata:
         neuron_data = metadata[str(neuron_idx)]
-        if "top_images" in neuron_data and split in neuron_data["top_images"]:
-            images_data = neuron_data["top_images"][split][:max_images]
+        print(f"DEBUG: Found neuron data. Keys: {list(neuron_data.keys())}")
+        
+        if "top_images" in neuron_data:
+            print(f"DEBUG: Found top_images. Available splits: {list(neuron_data['top_images'].keys())}")
             
-            for img_data in images_data:
-                filename = img_data["filename"]
-                activation = img_data["activation"]
+            if split in neuron_data["top_images"]:
+                images_data = neuron_data["top_images"][split][:max_images]
+                print(f"DEBUG: Found {len(images_data)} images for split {split}")
                 
-                url = f"{HF_BASE_URL}/neurons/neuron_{neuron_idx:04d}/{filename}"
-                urls.append(url)
-                activations.append(activation)
+                for i, img_data in enumerate(images_data):
+                    if isinstance(img_data, dict) and "filename" in img_data and "activation" in img_data:
+                        filename = img_data["filename"]
+                        activation = img_data["activation"]
+                        
+                        url = f"{HF_BASE_URL}/neurons/neuron_{neuron_idx:04d}/{filename}"
+                        urls.append(url)
+                        activations.append(activation)
+                        
+                        # Debug first few URLs
+                        if i < 3:
+                            print(f"DEBUG: URL {i+1}: {url}")
+                    else:
+                        print(f"DEBUG: Invalid image data format at index {i}: {img_data}")
+            else:
+                print(f"DEBUG: Split {split} not found in top_images")
+        else:
+            print(f"DEBUG: No top_images found in neuron data")
+    else:
+        print(f"DEBUG: Neuron {neuron_idx} not found in metadata")
     
+    print(f"DEBUG: Returning {len(urls)} URLs and {len(activations)} activations")
     return urls, activations
 
 def get_lucid_image_url(neuron_idx):
@@ -1254,7 +1277,13 @@ def main():
                     display_urls = image_urls[:num_display]
                     display_activations = activations_list[:num_display]
                 
-                # Display images
+                # DEBUG: Show first few URLs to check format
+                if st.checkbox("Debug: Show image URLs"):
+                    st.write("Sample URLs:")
+                    for i, url in enumerate(display_urls[:3]):
+                        st.write(f"{i+1}: {url}")
+                
+                # Display images with better error handling
                 if view_mode == "Grid":
                     cols_per_row = 5
                     total_rows = (num_display + cols_per_row - 1) // cols_per_row
@@ -1266,30 +1295,52 @@ def main():
                             if img_idx < len(display_urls):
                                 with cols[col_idx]:
                                     try:
-                                        st.image(
-                                            display_urls[img_idx],
-                                            caption=f"#{img_idx+1}: {display_activations[img_idx]:.3f}",
-                                            use_container_width=True
-                                        )
-                                    except:
-                                        st.error(f"Failed to load image {img_idx+1}")
+                                        # Try to load the image with better error handling
+                                        response = requests.get(display_urls[img_idx], timeout=10)
+                                        if response.status_code == 200:
+                                            image_data = BytesIO(response.content)
+                                            img = Image.open(image_data)
+                                            st.image(
+                                                img,
+                                                caption=f"#{img_idx+1}: {display_activations[img_idx]:.3f}",
+                                                use_container_width=True
+                                            )
+                                        else:
+                                            st.error(f"HTTP {response.status_code}")
+                                            st.write(f"URL: {display_urls[img_idx]}")
+                                    except requests.exceptions.RequestException as e:
+                                        st.error(f"Network error: {str(e)[:50]}...")
+                                    except Exception as e:
+                                        st.error(f"Error: {str(e)[:50]}...")
+                                        # Show the problematic URL for debugging
+                                        st.caption(f"URL: {display_urls[img_idx]}")
                 
                 elif view_mode == "List":
                     for i, (url, activation) in enumerate(zip(display_urls, display_activations)):
                         col1, col2 = st.columns([1, 3])
                         with col1:
                             try:
-                                st.image(url, width=150)
-                            except:
-                                st.error("Failed to load")
+                                response = requests.get(url, timeout=10)
+                                if response.status_code == 200:
+                                    image_data = BytesIO(response.content)
+                                    img = Image.open(image_data)
+                                    st.image(img, width=150)
+                                else:
+                                    st.error(f"Failed to load (HTTP {response.status_code})")
+                            except Exception as e:
+                                st.error(f"Load failed: {str(e)[:30]}...")
                         with col2:
                             st.markdown(f"**Rank {i+1}**")
                             st.markdown(f"Activation: `{activation:.4f}`")
+                            st.markdown(f"URL: `{url}`")
                             st.markdown("---")
             else:
                 st.warning(f"No images found for neuron {selected_neuron}")
+        else:
+            st.error(f"No metadata found for neuron {selected_neuron}")
         
         st.markdown('</div>', unsafe_allow_html=True)
+
     
     with tab3:
         st.markdown("#### Neuron Analysis Dashboard")
