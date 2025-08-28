@@ -4,7 +4,7 @@ An interactive web application for exploring what individual neurons in OpenAI's
 
 ## 🚀 Live Demo
 
-**[🔗 Try it live on Streamlit Cloud](https://your-app-url-here.streamlit.app)**
+Coming out soon!
 
 ## ✨ Features
 
