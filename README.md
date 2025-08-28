@@ -129,11 +129,10 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 - **OpenAI**: For the original [Microscope](https://microscope.openai.com) tool and CLIP model
 - **ImageNet**: For the dataset used in training
 - **Hugging Face**: For free dataset hosting
-- **Streamlit**: For the amazing web app framework
 
 ## 📞 Contact
 
-- **GitHub**: [@your-username](https://github.com/your-username)
+- **GitHub**: [@ernestoBocini](https://github.com/ernestoBocini)
 - **Dataset**: [Hugging Face](https://huggingface.co/datasets/ernestoBocini/clip-microscope-imagenet)
 
 ---
