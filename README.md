@@ -20,8 +20,7 @@ Coming out soon!
 
 Explore fascinating insights like:
 - **Neuron 89**: Responds strongly to Donald Trump images
-- **Neuron 244**: Detects Spider-Man and superhero imagery  
-- **Neuron 355**: Activates on puppies and cute animals
+- **Neuron 355**: Activates on puppies 
 - **Neuron 432**: Recognizes smiles and happy expressions
 - **Neuron 1095**: Specializes in sunglasses detection
 - And 2,555+ more neurons with unique specializations!
